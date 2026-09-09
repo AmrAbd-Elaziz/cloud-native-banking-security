@@ -1,0 +1,1090 @@
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.3.16 
+
+terraform scan results:
+
+Passed checks: 17, Failed checks: 40, Skipped checks: 0
+
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+	PASSED for resource: aws.default
+	File: /main.tf:12-14
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-5
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24
+Check: CKV_AWS_375: "Ensure AWS S3 bucket does not have global view ACL permissions enabled"
+	PASSED for resource: aws_s3_bucket_acl.transaction_logs
+	File: /main.tf:38-46
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-375
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-2
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-group-does-not-allow-all-traffic-on-all-ports
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+Check: CKV_AWS_388: "Ensure AWS Aurora PostgreSQL is not exposed to local file read vulnerability"
+	PASSED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+Check: CKV_AWS_211: "Ensure RDS uses a modern CaCert"
+	PASSED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-rds-uses-a-modern-cacert
+Check: CKV_AWS_354: "Ensure RDS Performance Insights are encrypted using KMS CMKs"
+	PASSED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-354
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: aws_cloudwatch_log_group.banking_api
+	File: /main.tf:145-153
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-13
+Check: CKV_AWS_339: "Ensure EKS clusters run on a supported Kubernetes version"
+	PASSED for resource: aws_eks_cluster.banking
+	File: /main.tf:155-172
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-339
+Check: CKV2_AWS_43: "Ensure S3 Bucket does not allow access to all Authenticated users"
+	PASSED for resource: aws_s3_bucket_acl.transaction_logs
+	File: /main.tf:38-46
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-s3-bucket-does-not-allow-access-to-all-authenticated-users
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	PASSED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-security-groups-are-attached-to-ec2-instances-or-elastic-network-interfaces-enis
+Check: CKV2_AWS_69: "Ensure AWS RDS database instance configured with encryption in transit"
+	PASSED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-2-69
+Check: CKV_AWS_57: "S3 Bucket has an ACL defined which allows public WRITE access."
+	PASSED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-2-acl-write-permissions-everyone
+Check: CKV_AWS_19: "Ensure all data stored in the S3 bucket is securely encrypted at rest"
+	PASSED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-14-data-encrypted-at-rest
+Check: CKV_AWS_55: "Ensure S3 bucket has ignore public ACLs enabled"
+	FAILED for resource: aws_s3_bucket_public_access_block.transaction_logs
+	File: /main.tf:29-36
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-21
+
+		29 | resource "aws_s3_bucket_public_access_block" "transaction_logs" {
+		30 |   bucket = aws_s3_bucket.transaction_logs.id
+		31 | 
+		32 |   block_public_acls       = false
+		33 |   block_public_policy     = false
+		34 |   ignore_public_acls      = false
+		35 |   restrict_public_buckets = false
+		36 | }
+
+Check: CKV_AWS_54: "Ensure S3 bucket has block public policy enabled"
+	FAILED for resource: aws_s3_bucket_public_access_block.transaction_logs
+	File: /main.tf:29-36
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-20
+
+		29 | resource "aws_s3_bucket_public_access_block" "transaction_logs" {
+		30 |   bucket = aws_s3_bucket.transaction_logs.id
+		31 | 
+		32 |   block_public_acls       = false
+		33 |   block_public_policy     = false
+		34 |   ignore_public_acls      = false
+		35 |   restrict_public_buckets = false
+		36 | }
+
+Check: CKV_AWS_53: "Ensure S3 bucket has block public ACLS enabled"
+	FAILED for resource: aws_s3_bucket_public_access_block.transaction_logs
+	File: /main.tf:29-36
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-19
+
+		29 | resource "aws_s3_bucket_public_access_block" "transaction_logs" {
+		30 |   bucket = aws_s3_bucket.transaction_logs.id
+		31 | 
+		32 |   block_public_acls       = false
+		33 |   block_public_policy     = false
+		34 |   ignore_public_acls      = false
+		35 |   restrict_public_buckets = false
+		36 | }
+
+Check: CKV_AWS_56: "Ensure S3 bucket has 'restrict_public_buckets' enabled"
+	FAILED for resource: aws_s3_bucket_public_access_block.transaction_logs
+	File: /main.tf:29-36
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-22
+
+		29 | resource "aws_s3_bucket_public_access_block" "transaction_logs" {
+		30 |   bucket = aws_s3_bucket.transaction_logs.id
+		31 | 
+		32 |   block_public_acls       = false
+		33 |   block_public_policy     = false
+		34 |   ignore_public_acls      = false
+		35 |   restrict_public_buckets = false
+		36 | }
+
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	FAILED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security
+
+		56 | resource "aws_security_group" "banking_database" {
+		57 |   name        = "banking-database-vulnerable"
+		58 |   description = "Intentionally vulnerable banking database access"
+		59 |   vpc_id      = var.vpc_id
+		60 | 
+		61 |   ingress {
+		62 |     description = "Public MySQL access"
+		63 |     from_port   = 3306
+		64 |     to_port     = 3306
+		65 |     protocol    = "tcp"
+		66 |     cidr_blocks = ["0.0.0.0/0"]
+		67 |   }
+		68 | 
+		69 |   ingress {
+		70 |     description = "Public SSH access"
+		71 |     from_port   = 22
+		72 |     to_port     = 22
+		73 |     protocol    = "tcp"
+		74 |     cidr_blocks = ["0.0.0.0/0"]
+		75 |   }
+		76 | 
+		77 |   egress {
+		78 |     description = "Unrestricted outbound access"
+		79 |     from_port   = 0
+		80 |     to_port     = 0
+		81 |     protocol    = "-1"
+		82 |     cidr_blocks = ["0.0.0.0/0"]
+		83 |   }
+		84 | 
+		85 |   tags = {
+		86 |     Name        = "banking-database-vulnerable"
+		87 |     Environment = "training-vulnerable"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	FAILED for resource: aws_security_group.banking_database
+	File: /main.tf:56-89
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382
+
+		56 | resource "aws_security_group" "banking_database" {
+		57 |   name        = "banking-database-vulnerable"
+		58 |   description = "Intentionally vulnerable banking database access"
+		59 |   vpc_id      = var.vpc_id
+		60 | 
+		61 |   ingress {
+		62 |     description = "Public MySQL access"
+		63 |     from_port   = 3306
+		64 |     to_port     = 3306
+		65 |     protocol    = "tcp"
+		66 |     cidr_blocks = ["0.0.0.0/0"]
+		67 |   }
+		68 | 
+		69 |   ingress {
+		70 |     description = "Public SSH access"
+		71 |     from_port   = 22
+		72 |     to_port     = 22
+		73 |     protocol    = "tcp"
+		74 |     cidr_blocks = ["0.0.0.0/0"]
+		75 |   }
+		76 | 
+		77 |   egress {
+		78 |     description = "Unrestricted outbound access"
+		79 |     from_port   = 0
+		80 |     to_port     = 0
+		81 |     protocol    = "-1"
+		82 |     cidr_blocks = ["0.0.0.0/0"]
+		83 |   }
+		84 | 
+		85 |   tags = {
+		86 |     Name        = "banking-database-vulnerable"
+		87 |     Environment = "training-vulnerable"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_133: "Ensure that RDS instances has backup policy"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-rds-instances-have-backup-policy
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_16: "Ensure all data stored in the RDS is securely encrypted at rest"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-4
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_118: "Ensure that enhanced monitoring is enabled for Amazon RDS instances"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-enhanced-monitoring-is-enabled-for-amazon-rds-instances
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_17: "Ensure all data stored in RDS is not publicly accessible"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/public-policies/public-2
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_161: "Ensure RDS database has IAM authentication enabled"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-rds-database-has-iam-authentication-enabled
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_129: "Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-that-respective-logs-of-amazon-relational-database-service-amazon-rds-are-enabled
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_226: "Ensure DB instance gets all minor upgrades automatically"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-db-instance-gets-all-minor-upgrades-automatically
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_157: "Ensure that RDS instances have Multi-AZ enabled"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-73
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_293: "Ensure that AWS database instances have deletion protection enabled"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-293
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_288: "Ensure IAM policies does not allow data exfiltration"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-288
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_289: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-289
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_290: "Ensure IAM policies does not allow write access without constraints"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-290
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_287: "Ensure IAM policies does not allow credentials exposure"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-287
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_286: "Ensure IAM policies does not allow privilege escalation"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-286
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_355: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-355
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	FAILED for resource: aws_cloudwatch_log_group.banking_api
+	File: /main.tf:145-153
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338
+
+		145 | resource "aws_cloudwatch_log_group" "banking_api" {
+		146 |   name              = "/banking/vulnerable/api"
+		147 |   retention_in_days = 1
+		148 | 
+		149 |   tags = {
+		150 |     Environment = "training-vulnerable"
+		151 |     DataClass   = "security-audit"
+		152 |   }
+		153 | }
+
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	FAILED for resource: aws_cloudwatch_log_group.banking_api
+	File: /main.tf:145-153
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms
+
+		145 | resource "aws_cloudwatch_log_group" "banking_api" {
+		146 |   name              = "/banking/vulnerable/api"
+		147 |   retention_in_days = 1
+		148 | 
+		149 |   tags = {
+		150 |     Environment = "training-vulnerable"
+		151 |     DataClass   = "security-audit"
+		152 |   }
+		153 | }
+
+Check: CKV_AWS_38: "Ensure Amazon EKS public endpoint not accessible to 0.0.0.0/0"
+	FAILED for resource: aws_eks_cluster.banking
+	File: /main.tf:155-172
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-1
+
+		155 | resource "aws_eks_cluster" "banking" {
+		156 |   name     = "banking-vulnerable"
+		157 |   role_arn = var.eks_cluster_role_arn
+		158 | 
+		159 |   vpc_config {
+		160 |     subnet_ids              = var.eks_subnet_ids
+		161 |     endpoint_public_access  = true
+		162 |     endpoint_private_access = false
+		163 |     public_access_cidrs     = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   enabled_cluster_log_types = ["api"]
+		167 | 
+		168 |   tags = {
+		169 |     Name        = "banking-vulnerable"
+		170 |     Environment = "training-vulnerable"
+		171 |   }
+		172 | }
+Check: CKV_AWS_58: "Ensure EKS Cluster has Secrets Encryption Enabled"
+	FAILED for resource: aws_eks_cluster.banking
+	File: /main.tf:155-172
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-3
+
+		155 | resource "aws_eks_cluster" "banking" {
+		156 |   name     = "banking-vulnerable"
+		157 |   role_arn = var.eks_cluster_role_arn
+		158 | 
+		159 |   vpc_config {
+		160 |     subnet_ids              = var.eks_subnet_ids
+		161 |     endpoint_public_access  = true
+		162 |     endpoint_private_access = false
+		163 |     public_access_cidrs     = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   enabled_cluster_log_types = ["api"]
+		167 | 
+		168 |   tags = {
+		169 |     Name        = "banking-vulnerable"
+		170 |     Environment = "training-vulnerable"
+		171 |   }
+		172 | }
+Check: CKV_AWS_37: "Ensure Amazon EKS control plane logging is enabled for all log types"
+	FAILED for resource: aws_eks_cluster.banking
+	File: /main.tf:155-172
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-4
+
+		155 | resource "aws_eks_cluster" "banking" {
+		156 |   name     = "banking-vulnerable"
+		157 |   role_arn = var.eks_cluster_role_arn
+		158 | 
+		159 |   vpc_config {
+		160 |     subnet_ids              = var.eks_subnet_ids
+		161 |     endpoint_public_access  = true
+		162 |     endpoint_private_access = false
+		163 |     public_access_cidrs     = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   enabled_cluster_log_types = ["api"]
+		167 | 
+		168 |   tags = {
+		169 |     Name        = "banking-vulnerable"
+		170 |     Environment = "training-vulnerable"
+		171 |   }
+		172 | }
+Check: CKV_AWS_39: "Ensure Amazon EKS public endpoint disabled"
+	FAILED for resource: aws_eks_cluster.banking
+	File: /main.tf:155-172
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-2
+
+		155 | resource "aws_eks_cluster" "banking" {
+		156 |   name     = "banking-vulnerable"
+		157 |   role_arn = var.eks_cluster_role_arn
+		158 | 
+		159 |   vpc_config {
+		160 |     subnet_ids              = var.eks_subnet_ids
+		161 |     endpoint_public_access  = true
+		162 |     endpoint_private_access = false
+		163 |     public_access_cidrs     = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   enabled_cluster_log_types = ["api"]
+		167 | 
+		168 |   tags = {
+		169 |     Name        = "banking-vulnerable"
+		170 |     Environment = "training-vulnerable"
+		171 |   }
+		172 | }
+Check: CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
+	FAILED for resource: aws_s3_bucket_ownership_controls.transaction_logs
+	File: /main.tf:48-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-112
+
+		48 | resource "aws_s3_bucket_ownership_controls" "transaction_logs" {
+		49 |   bucket = aws_s3_bucket.transaction_logs.id
+		50 | 
+		51 |   rule {
+		52 |     object_ownership = "BucketOwnerPreferred"
+		53 |   }
+		54 | }
+
+Check: CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-bucket-has-cross-region-replication-enabled
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV2_AWS_62: "Ensure S3 buckets should have event notifications enabled"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-62
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV2_AWS_61: "Ensure that an S3 bucket has a lifecycle configuration"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-61
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV2_AWS_6: "Ensure that S3 bucket has a Public Access block"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/s3-bucket-should-have-public-access-blocks-defaults-to-false-if-the-public-access-block-is-not-attached
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-16-enable-versioning
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV2_AWS_60: "Ensure RDS instance with copy tags to snapshots is enabled"
+	FAILED for resource: aws_db_instance.banking
+	File: /main.tf:91-126
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-2-60
+
+		91  | resource "aws_db_instance" "banking" {
+		92  |   identifier = "banking-database-vulnerable"
+		93  | 
+		94  |   engine         = "mysql"
+		95  |   engine_version = "8.0"
+		96  |   instance_class = "db.t3.micro"
+		97  | 
+		98  |   allocated_storage = 20
+		99  |   storage_type       = "gp2"
+		100 |   storage_encrypted  = false
+		101 | 
+		102 |   db_name  = "banking"
+		103 |   username = var.database_username
+		104 |   password = var.database_password
+		105 |   port     = 3306
+		106 | 
+		107 |   publicly_accessible    = true
+		108 |   vpc_security_group_ids = [aws_security_group.banking_database.id]
+		109 | 
+		110 |   backup_retention_period = 0
+		111 |   deletion_protection     = false
+		112 |   skip_final_snapshot     = true
+		113 |   multi_az                = false
+		114 | 
+		115 |   auto_minor_version_upgrade   = false
+		116 |   iam_database_authentication_enabled = false
+		117 |   performance_insights_enabled = false
+		118 | 
+		119 |   enabled_cloudwatch_logs_exports = []
+		120 | 
+		121 |   tags = {
+		122 |     Name        = "banking-database-vulnerable"
+		123 |     Environment = "training-vulnerable"
+		124 |     DataClass   = "cardholder-data"
+		125 |   }
+		126 | }
+
+Check: CKV_AWS_20: "S3 Bucket has an ACL defined which allows public READ access."
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-1-acl-read-permissions-everyone
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	FAILED for resource: aws_iam_policy.banking_api
+	File: /main.tf:128-143
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-40
+
+		128 | resource "aws_iam_policy" "banking_api" {
+		129 |   name        = "banking-api-vulnerable-policy"
+		130 |   description = "Intentionally excessive banking API permissions"
+		131 | 
+		132 |   policy = jsonencode({
+		133 |     Version = "2012-10-17"
+		134 | 
+		135 |     Statement = [
+		136 |       {
+		137 |         Effect   = "Allow"
+		138 |         Action   = "*"
+		139 |         Resource = "*"
+		140 |       }
+		141 |     ]
+		142 |   })
+		143 | }
+
+Check: CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default"
+	FAILED for resource: aws_s3_bucket.transaction_logs
+	File: /main.tf:19-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default
+
+		19 | resource "aws_s3_bucket" "transaction_logs" {
+		20 |   bucket = var.transaction_logs_bucket_name
+		21 | 
+		22 |   tags = {
+		23 |     Name        = "banking-transaction-logs"
+		24 |     Environment = "training-vulnerable"
+		25 |     DataClass   = "financial"
+		26 |   }
+		27 | }
+
+
