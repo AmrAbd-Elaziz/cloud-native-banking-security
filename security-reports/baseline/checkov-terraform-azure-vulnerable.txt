@@ -1,0 +1,1384 @@
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.3.16 
+
+terraform scan results:
+
+Passed checks: 15, Failed checks: 45, Skipped checks: 0
+
+Check: CKV_AZURE_3: "Ensure that 'enable_https_traffic_only' is enabled"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-3
+Check: CKV_AZURE_43: "Ensure Storage Accounts adhere to the naming rules"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/ensure-storage-accounts-adhere-to-the-naming-rules
+Check: CKV_AZURE_36: "Ensure 'Trusted Microsoft Services' is enabled for Storage Account access"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/enable-trusted-microsoft-services-for-storage-account-access
+Check: CKV_AZURE_244: "Avoid the use of local users for Azure Storage unless necessary"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-244
+Check: CKV_AZURE_9: "Ensure that RDP access is restricted from the internet"
+	PASSED for resource: azurerm_network_security_group.banking
+	File: /main.tf:56-88
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azr-networking-2
+Check: CKV_AZURE_77: "Ensure that UDP Services are restricted from the Internet "
+	PASSED for resource: azurerm_network_security_group.banking
+	File: /main.tf:56-88
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-udp-services-are-restricted-from-the-internet
+Check: CKV_AZURE_160: "Ensure that HTTP (port 80) access is restricted from the internet"
+	PASSED for resource: azurerm_network_security_group.banking
+	File: /main.tf:56-88
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-azure-http-port-80-access-from-the-internet-is-restricted
+Check: CKV_AZURE_111: "Ensure that key vault enables soft delete"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /main.tf:90-111
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-enables-soft-delete
+Check: CKV_AZURE_246: "Ensure Azure AKS cluster HTTP application routing is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-246
+Check: CKV_AZURE_6: "Ensure AKS has an API Server Authorized IP Ranges enabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-3
+Check: CKV_AZURE_169: "Ensure Azure Kubernetes Cluster (AKS) nodes use scale sets"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/azr-kubernetes-169
+Check: CKV_AZURE_143: "Ensure AKS cluster nodes do not have public IP addresses"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-143
+Check: CKV_AZURE_8: "Ensure Kubernetes Dashboard is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-5
+Check: CKV2_AZURE_8: "Ensure the storage container storing the activity logs is not publicly accessible"
+	PASSED for resource: azurerm_storage_container.transaction_logs
+	File: /main.tf:50-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-the-storage-container-storing-the-activity-logs-is-not-publicly-accessible
+Check: CKV2_AZURE_34: "Ensure Azure SQL server firewall is not overly permissive"
+	PASSED for resource: azurerm_mssql_firewall_rule.allow_internet
+	File: /main.tf:130-135
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-2-34
+Check: CKV_AZURE_190: "Ensure that Storage blobs restrict public access"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-190
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV_AZURE_44: "Ensure Storage Account is using the latest version of TLS encryption"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/bc-azr-storage-2
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV_AZURE_33: "Ensure Storage logging is enabled for Queue service for read, write and delete requests"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/enable-requests-on-storage-logging-for-queue-service
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV_AZURE_206: "Ensure that Storage Accounts use replication"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-206
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV_AZURE_59: "Ensure that Storage accounts disallow public access"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-storage-accounts-disallow-public-access
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV_AZURE_34: "Ensure that 'Public access level' is set to Private for blob containers"
+	FAILED for resource: azurerm_storage_container.transaction_logs
+	File: /main.tf:50-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/set-public-access-level-to-private-for-blob-containers
+
+		50 | resource "azurerm_storage_container" "transaction_logs" {
+		51 |   name                  = "transaction-logs"
+		52 |   storage_account_id    = azurerm_storage_account.transaction_logs.id
+		53 |   container_access_type = "blob"
+		54 | }
+
+Check: CKV_AZURE_10: "Ensure that SSH access is restricted from the internet"
+	FAILED for resource: azurerm_network_security_group.banking
+	File: /main.tf:56-88
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azr-networking-3
+
+		56 | resource "azurerm_network_security_group" "banking" {
+		57 |   name                = "nsg-banking-vulnerable"
+		58 |   location            = azurerm_resource_group.banking.location
+		59 |   resource_group_name = azurerm_resource_group.banking.name
+		60 | 
+		61 |   security_rule {
+		62 |     name                       = "Allow-Public-SSH"
+		63 |     priority                   = 100
+		64 |     direction                  = "Inbound"
+		65 |     access                     = "Allow"
+		66 |     protocol                   = "Tcp"
+		67 |     source_port_range          = "*"
+		68 |     destination_port_range     = "22"
+		69 |     source_address_prefix      = "*"
+		70 |     destination_address_prefix = "*"
+		71 |   }
+		72 | 
+		73 |   security_rule {
+		74 |     name                       = "Allow-Public-SQL"
+		75 |     priority                   = 110
+		76 |     direction                  = "Inbound"
+		77 |     access                     = "Allow"
+		78 |     protocol                   = "Tcp"
+		79 |     source_port_range          = "*"
+		80 |     destination_port_range     = "1433"
+		81 |     source_address_prefix      = "*"
+		82 |     destination_address_prefix = "*"
+		83 |   }
+		84 | 
+		85 |   tags = {
+		86 |     Environment = "training-vulnerable"
+		87 |   }
+		88 | }
+
+Check: CKV_AZURE_189: "Ensure that Azure Key Vault disables public network access"
+	FAILED for resource: azurerm_key_vault.banking
+	File: /main.tf:90-111
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-189
+
+		90  | resource "azurerm_key_vault" "banking" {
+		91  |   name                = var.key_vault_name
+		92  |   location            = azurerm_resource_group.banking.location
+		93  |   resource_group_name = azurerm_resource_group.banking.name
+		94  |   tenant_id           = var.tenant_id
+		95  |   sku_name            = "standard"
+		96  | 
+		97  |   soft_delete_retention_days  = 7
+		98  |   purge_protection_enabled    = false
+		99  |   enable_rbac_authorization   = false
+		100 |   public_network_access_enabled = true
+		101 | 
+		102 |   network_acls {
+		103 |     bypass         = "AzureServices"
+		104 |     default_action = "Allow"
+		105 |   }
+		106 | 
+		107 |   tags = {
+		108 |     Environment = "training-vulnerable"
+		109 |     DataClass   = "secrets"
+		110 |   }
+		111 | }
+
+Check: CKV_AZURE_109: "Ensure that key vault allows firewall rules settings"
+	FAILED for resource: azurerm_key_vault.banking
+	File: /main.tf:90-111
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-key-vault-allows-firewall-rules-settings
+
+		90  | resource "azurerm_key_vault" "banking" {
+		91  |   name                = var.key_vault_name
+		92  |   location            = azurerm_resource_group.banking.location
+		93  |   resource_group_name = azurerm_resource_group.banking.name
+		94  |   tenant_id           = var.tenant_id
+		95  |   sku_name            = "standard"
+		96  | 
+		97  |   soft_delete_retention_days  = 7
+		98  |   purge_protection_enabled    = false
+		99  |   enable_rbac_authorization   = false
+		100 |   public_network_access_enabled = true
+		101 | 
+		102 |   network_acls {
+		103 |     bypass         = "AzureServices"
+		104 |     default_action = "Allow"
+		105 |   }
+		106 | 
+		107 |   tags = {
+		108 |     Environment = "training-vulnerable"
+		109 |     DataClass   = "secrets"
+		110 |   }
+		111 | }
+
+Check: CKV_AZURE_42: "Ensure the key vault is recoverable"
+	FAILED for resource: azurerm_key_vault.banking
+	File: /main.tf:90-111
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-the-key-vault-is-recoverable
+
+		90  | resource "azurerm_key_vault" "banking" {
+		91  |   name                = var.key_vault_name
+		92  |   location            = azurerm_resource_group.banking.location
+		93  |   resource_group_name = azurerm_resource_group.banking.name
+		94  |   tenant_id           = var.tenant_id
+		95  |   sku_name            = "standard"
+		96  | 
+		97  |   soft_delete_retention_days  = 7
+		98  |   purge_protection_enabled    = false
+		99  |   enable_rbac_authorization   = false
+		100 |   public_network_access_enabled = true
+		101 | 
+		102 |   network_acls {
+		103 |     bypass         = "AzureServices"
+		104 |     default_action = "Allow"
+		105 |   }
+		106 | 
+		107 |   tags = {
+		108 |     Environment = "training-vulnerable"
+		109 |     DataClass   = "secrets"
+		110 |   }
+		111 | }
+
+Check: CKV_AZURE_110: "Ensure that key vault enables purge protection"
+	FAILED for resource: azurerm_key_vault.banking
+	File: /main.tf:90-111
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-enables-purge-protection
+
+		90  | resource "azurerm_key_vault" "banking" {
+		91  |   name                = var.key_vault_name
+		92  |   location            = azurerm_resource_group.banking.location
+		93  |   resource_group_name = azurerm_resource_group.banking.name
+		94  |   tenant_id           = var.tenant_id
+		95  |   sku_name            = "standard"
+		96  | 
+		97  |   soft_delete_retention_days  = 7
+		98  |   purge_protection_enabled    = false
+		99  |   enable_rbac_authorization   = false
+		100 |   public_network_access_enabled = true
+		101 | 
+		102 |   network_acls {
+		103 |     bypass         = "AzureServices"
+		104 |     default_action = "Allow"
+		105 |   }
+		106 | 
+		107 |   tags = {
+		108 |     Environment = "training-vulnerable"
+		109 |     DataClass   = "secrets"
+		110 |   }
+		111 | }
+
+Check: CKV_AZURE_113: "Ensure that SQL server disables public network access"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-sql-server-disables-public-network-access
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+Check: CKV_AZURE_52: "Ensure MSSQL is using the latest version of TLS encryption"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-mssql-is-using-the-latest-version-of-tls-encryption
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+Check: CKV_AZURE_11: "Ensure no SQL Databases allow ingress from 0.0.0.0/0 (ANY IP)"
+	FAILED for resource: azurerm_mssql_firewall_rule.allow_internet
+	File: /main.tf:130-135
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azr-networking-4
+
+		130 | resource "azurerm_mssql_firewall_rule" "allow_internet" {
+		131 |   name             = "AllowAllInternet"
+		132 |   server_id        = azurerm_mssql_server.banking.id
+		133 |   start_ip_address = "0.0.0.0"
+		134 |   end_ip_address   = "255.255.255.255"
+		135 | }
+
+Check: CKV_AZURE_229: "Ensure the Azure SQL Database Namespace is zone redundant"
+	FAILED for resource: azurerm_mssql_database.banking
+	File: /main.tf:137-149
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/bc-azure-229
+
+		137 | resource "azurerm_mssql_database" "banking" {
+		138 |   name      = "banking"
+		139 |   server_id = azurerm_mssql_server.banking.id
+		140 |   sku_name  = "S0"
+		141 | 
+		142 |   transparent_data_encryption_enabled = false
+		143 |   zone_redundant                      = false
+		144 | 
+		145 |   tags = {
+		146 |     Environment = "training-vulnerable"
+		147 |     DataClass   = "cardholder-data"
+		148 |   }
+		149 | }
+
+Check: CKV_AZURE_224: "Ensure that the Ledger feature is enabled on database that requires cryptographic proof and nonrepudiation of data integrity"
+	FAILED for resource: azurerm_mssql_database.banking
+	File: /main.tf:137-149
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azure-224
+
+		137 | resource "azurerm_mssql_database" "banking" {
+		138 |   name      = "banking"
+		139 |   server_id = azurerm_mssql_server.banking.id
+		140 |   sku_name  = "S0"
+		141 | 
+		142 |   transparent_data_encryption_enabled = false
+		143 |   zone_redundant                      = false
+		144 | 
+		145 |   tags = {
+		146 |     Environment = "training-vulnerable"
+		147 |     DataClass   = "cardholder-data"
+		148 |   }
+		149 | }
+
+Check: CKV_AZURE_141: "Ensure AKS local admin account is disabled"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/ensure-azure-kubernetes-service-aks-local-admin-account-is-disabled
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_7: "Ensure AKS cluster has Network Policy configured"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-4
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_172: "Ensure autorotation of Secrets Store CSI Driver secrets for AKS clusters"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-172
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_4: "Ensure AKS logging to Azure Monitoring is Configured"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-1
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_171: "Ensure AKS cluster upgrade channel is chosen"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-171
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_5: "Ensure RBAC is enabled on AKS clusters"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-2
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_170: "Ensure that AKS use the Paid Sku for its SLA"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-170
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_227: "Ensure that the AKS cluster encrypt temp disks, caches, and data flows between Compute and Storage resources"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-227
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_168: "Ensure Azure Kubernetes Cluster (AKS) nodes should use a minimum number of 50 pods."
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/azr-kubernetes-168
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_115: "Ensure that AKS enables private clusters"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-enables-private-clusters
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_226: "Ensure ephemeral disks are used for OS disks"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-226
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_116: "Ensure that AKS uses Azure Policies Add-on"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-uses-azure-policies-add-on
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_232: "Ensure that only critical system pods run on system nodes"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-232
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_117: "Ensure that AKS uses disk encryption set"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-uses-disk-encryption-set
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV2_AZURE_40: "Ensure storage account is not configured with Shared Key authorization"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-40
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV_AZURE_23: "Ensure that 'Auditing' is set to 'On' for SQL servers"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azr-logging-2
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+Check: CKV2_AZURE_21: "Ensure Storage logging is enabled for Blob service for read requests"
+	FAILED for resource: azurerm_storage_container.transaction_logs
+	File: /main.tf:50-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-storage-logging-is-enabled-for-blob-service-for-read-requests
+
+		50 | resource "azurerm_storage_container" "transaction_logs" {
+		51 |   name                  = "transaction-logs"
+		52 |   storage_account_id    = azurerm_storage_account.transaction_logs.id
+		53 |   container_access_type = "blob"
+		54 | }
+
+Check: CKV2_AZURE_47: "Ensure storage account is configured without blob anonymous access"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-47
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV2_AZURE_32: "Ensure private endpoint is configured to key vault"
+	FAILED for resource: azurerm_key_vault.banking
+	File: /main.tf:90-111
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-32
+
+		90  | resource "azurerm_key_vault" "banking" {
+		91  |   name                = var.key_vault_name
+		92  |   location            = azurerm_resource_group.banking.location
+		93  |   resource_group_name = azurerm_resource_group.banking.name
+		94  |   tenant_id           = var.tenant_id
+		95  |   sku_name            = "standard"
+		96  | 
+		97  |   soft_delete_retention_days  = 7
+		98  |   purge_protection_enabled    = false
+		99  |   enable_rbac_authorization   = false
+		100 |   public_network_access_enabled = true
+		101 | 
+		102 |   network_acls {
+		103 |     bypass         = "AzureServices"
+		104 |     default_action = "Allow"
+		105 |   }
+		106 | 
+		107 |   tags = {
+		108 |     Environment = "training-vulnerable"
+		109 |     DataClass   = "secrets"
+		110 |   }
+		111 | }
+
+Check: CKV2_AZURE_38: "Ensure soft-delete is enabled on Azure storage account"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-38
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV2_AZURE_25: "Ensure Azure SQL database Transparent Data Encryption (TDE) is enabled"
+	FAILED for resource: azurerm_mssql_database.banking
+	File: /main.tf:137-149
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-25
+
+		137 | resource "azurerm_mssql_database" "banking" {
+		138 |   name      = "banking"
+		139 |   server_id = azurerm_mssql_server.banking.id
+		140 |   sku_name  = "S0"
+		141 | 
+		142 |   transparent_data_encryption_enabled = false
+		143 |   zone_redundant                      = false
+		144 | 
+		145 |   tags = {
+		146 |     Environment = "training-vulnerable"
+		147 |     DataClass   = "cardholder-data"
+		148 |   }
+		149 | }
+
+Check: CKV2_AZURE_1: "Ensure storage for critical data are encrypted with Customer Managed Key"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-storage-for-critical-data-are-encrypted-with-customer-managed-key
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV2_AZURE_33: "Ensure storage account is configured with private endpoint"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-33
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV2_AZURE_27: "Ensure Azure AD authentication is enabled for Azure SQL (MSSQL)"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-85
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+Check: CKV2_AZURE_41: "Ensure storage account is configured with SAS expiration policy"
+	FAILED for resource: azurerm_storage_account.transaction_logs
+	File: /main.tf:29-48
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-41
+
+		29 | resource "azurerm_storage_account" "transaction_logs" {
+		30 |   name                     = var.storage_account_name
+		31 |   resource_group_name      = azurerm_resource_group.banking.name
+		32 |   location                 = azurerm_resource_group.banking.location
+		33 |   account_tier             = "Standard"
+		34 |   account_replication_type = "LRS"
+		35 | 
+		36 |   https_traffic_only_enabled          = false
+		37 |   min_tls_version                     = "TLS1_0"
+		38 |   public_network_access_enabled       = true
+		39 |   allow_nested_items_to_be_public     = true
+		40 |   shared_access_key_enabled           = true
+		41 |   infrastructure_encryption_enabled   = false
+		42 |   cross_tenant_replication_enabled    = true
+		43 | 
+		44 |   tags = {
+		45 |     Environment = "training-vulnerable"
+		46 |     DataClass   = "financial-audit"
+		47 |   }
+		48 | }
+
+Check: CKV2_AZURE_2: "Ensure that Vulnerability Assessment (VA) is enabled on a SQL server by setting a Storage Account"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-vulnerability-assessment-va-is-enabled-on-a-sql-server-by-setting-a-storage-account
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+Check: CKV2_AZURE_45: "Ensure Microsoft SQL server is configured with private endpoint"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-45
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+Check: CKV2_AZURE_29: "Ensure AKS cluster has Azure CNI networking enabled"
+	FAILED for resource: azurerm_kubernetes_cluster.banking
+	File: /main.tf:151-185
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-29
+
+		151 | resource "azurerm_kubernetes_cluster" "banking" {
+		152 |   name                = "aks-banking-vulnerable"
+		153 |   location            = azurerm_resource_group.banking.location
+		154 |   resource_group_name = azurerm_resource_group.banking.name
+		155 |   dns_prefix          = "banking-vulnerable"
+		156 | 
+		157 |   private_cluster_enabled           = false
+		158 |   role_based_access_control_enabled = false
+		159 |   local_account_disabled            = false
+		160 |   azure_policy_enabled              = false
+		161 | 
+		162 |   api_server_access_profile {
+		163 |     authorized_ip_ranges = ["0.0.0.0/0"]
+		164 |   }
+		165 | 
+		166 |   default_node_pool {
+		167 |     name       = "default"
+		168 |     node_count = 1
+		169 |     vm_size    = "Standard_D2s_v3"
+		170 |   }
+		171 | 
+		172 |   network_profile {
+		173 |     network_plugin    = "kubenet"
+		174 |     load_balancer_sku = "standard"
+		175 |   }
+		176 | 
+		177 |   identity {
+		178 |     type = "SystemAssigned"
+		179 |   }
+		180 | 
+		181 |   tags = {
+		182 |     Environment = "training-vulnerable"
+		183 |     DataClass   = "financial-workloads"
+		184 |   }
+		185 | }
+Check: CKV_AZURE_24: "Ensure that 'Auditing' Retention is 'greater than 90 days' for SQL servers"
+	FAILED for resource: azurerm_mssql_server.banking
+	File: /main.tf:113-128
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azr-logging-3
+
+		113 | resource "azurerm_mssql_server" "banking" {
+		114 |   name                         = var.sql_server_name
+		115 |   resource_group_name          = azurerm_resource_group.banking.name
+		116 |   location                     = azurerm_resource_group.banking.location
+		117 |   version                      = "12.0"
+		118 |   administrator_login          = var.sql_administrator_login
+		119 |   administrator_login_password = var.sql_administrator_password
+		120 | 
+		121 |   minimum_tls_version           = "1.0"
+		122 |   public_network_access_enabled = true
+		123 | 
+		124 |   tags = {
+		125 |     Environment = "training-vulnerable"
+		126 |     DataClass   = "cardholder-data"
+		127 |   }
+		128 | }
+
+
