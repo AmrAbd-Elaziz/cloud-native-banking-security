@@ -1,0 +1,263 @@
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.3.16 
+
+terraform scan results:
+
+Passed checks: 61, Failed checks: 0, Skipped checks: 1
+
+Check: CKV_AZURE_141: "Ensure AKS local admin account is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/ensure-azure-kubernetes-service-aks-local-admin-account-is-disabled
+Check: CKV_AZURE_7: "Ensure AKS cluster has Network Policy configured"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-4
+Check: CKV_AZURE_172: "Ensure autorotation of Secrets Store CSI Driver secrets for AKS clusters"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-172
+Check: CKV_AZURE_4: "Ensure AKS logging to Azure Monitoring is Configured"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-1
+Check: CKV_AZURE_171: "Ensure AKS cluster upgrade channel is chosen"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-171
+Check: CKV_AZURE_5: "Ensure RBAC is enabled on AKS clusters"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-2
+Check: CKV_AZURE_170: "Ensure that AKS use the Paid Sku for its SLA"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-170
+Check: CKV_AZURE_227: "Ensure that the AKS cluster encrypt temp disks, caches, and data flows between Compute and Storage resources"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-227
+Check: CKV_AZURE_168: "Ensure Azure Kubernetes Cluster (AKS) nodes should use a minimum number of 50 pods."
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/azr-kubernetes-168
+Check: CKV_AZURE_115: "Ensure that AKS enables private clusters"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-enables-private-clusters
+Check: CKV_AZURE_246: "Ensure Azure AKS cluster HTTP application routing is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-246
+Check: CKV_AZURE_226: "Ensure ephemeral disks are used for OS disks"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-226
+Check: CKV_AZURE_6: "Ensure AKS has an API Server Authorized IP Ranges enabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-3
+Check: CKV_AZURE_116: "Ensure that AKS uses Azure Policies Add-on"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-uses-azure-policies-add-on
+Check: CKV_AZURE_232: "Ensure that only critical system pods run on system nodes"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-232
+Check: CKV_AZURE_169: "Ensure Azure Kubernetes Cluster (AKS) nodes use scale sets"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/azr-kubernetes-169
+Check: CKV_AZURE_143: "Ensure AKS cluster nodes do not have public IP addresses"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-143
+Check: CKV_AZURE_8: "Ensure Kubernetes Dashboard is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-5
+Check: CKV_AZURE_117: "Ensure that AKS uses disk encryption set"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-uses-disk-encryption-set
+Check: CKV_AZURE_189: "Ensure that Azure Key Vault disables public network access"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /keyvault.tf:1-23
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-189
+Check: CKV_AZURE_109: "Ensure that key vault allows firewall rules settings"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /keyvault.tf:1-23
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-key-vault-allows-firewall-rules-settings
+Check: CKV_AZURE_42: "Ensure the key vault is recoverable"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /keyvault.tf:1-23
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-the-key-vault-is-recoverable
+Check: CKV_AZURE_110: "Ensure that key vault enables purge protection"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /keyvault.tf:1-23
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-enables-purge-protection
+Check: CKV_AZURE_111: "Ensure that key vault enables soft delete"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /keyvault.tf:1-23
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-enables-soft-delete
+Check: CKV_AZURE_40: "Ensure that the expiration date is set on all keys"
+	PASSED for resource: azurerm_key_vault_key.sql
+	File: /sql.tf:1-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/set-an-expiration-date-on-all-keys
+Check: CKV_AZURE_112: "Ensure that key vault key is backed by HSM"
+	PASSED for resource: azurerm_key_vault_key.sql
+	File: /sql.tf:1-27
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-key-is-backed-by-hsm
+Check: CKV_AZURE_113: "Ensure that SQL server disables public network access"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-sql-server-disables-public-network-access
+Check: CKV_AZURE_52: "Ensure MSSQL is using the latest version of TLS encryption"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-mssql-is-using-the-latest-version-of-tls-encryption
+Check: CKV_AZURE_229: "Ensure the Azure SQL Database Namespace is zone redundant"
+	PASSED for resource: azurerm_mssql_database.banking
+	File: /sql.tf:73-106
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/bc-azure-229
+Check: CKV_AZURE_224: "Ensure that the Ledger feature is enabled on database that requires cryptographic proof and nonrepudiation of data integrity"
+	PASSED for resource: azurerm_mssql_database.banking
+	File: /sql.tf:73-106
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azure-224
+Check: CKV_AZURE_27: "Ensure that 'Email service and co-administrators' is 'Enabled' for MSSQL servers"
+	PASSED for resource: azurerm_mssql_server_security_alert_policy.banking
+	File: /sql.tf:114-122
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azr-general-8
+Check: CKV_AZURE_26: "Ensure that 'Send Alerts To' is enabled for MSSQL servers"
+	PASSED for resource: azurerm_mssql_server_security_alert_policy.banking
+	File: /sql.tf:114-122
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azr-general-7
+Check: CKV_AZURE_25: "Ensure that 'Threat Detection types' is set to 'All'"
+	PASSED for resource: azurerm_mssql_server_security_alert_policy.banking
+	File: /sql.tf:114-122
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azr-general-6
+Check: CKV_AZURE_40: "Ensure that the expiration date is set on all keys"
+	PASSED for resource: azurerm_key_vault_key.storage
+	File: /storage.tf:11-37
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/set-an-expiration-date-on-all-keys
+Check: CKV_AZURE_112: "Ensure that key vault key is backed by HSM"
+	PASSED for resource: azurerm_key_vault_key.storage
+	File: /storage.tf:11-37
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-key-is-backed-by-hsm
+Check: CKV_AZURE_190: "Ensure that Storage blobs restrict public access"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-190
+Check: CKV_AZURE_3: "Ensure that 'enable_https_traffic_only' is enabled"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-3
+Check: CKV_AZURE_43: "Ensure Storage Accounts adhere to the naming rules"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/ensure-storage-accounts-adhere-to-the-naming-rules
+Check: CKV_AZURE_36: "Ensure 'Trusted Microsoft Services' is enabled for Storage Account access"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/enable-trusted-microsoft-services-for-storage-account-access
+Check: CKV_AZURE_244: "Avoid the use of local users for Azure Storage unless necessary"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-244
+Check: CKV_AZURE_44: "Ensure Storage Account is using the latest version of TLS encryption"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/bc-azr-storage-2
+Check: CKV_AZURE_33: "Ensure Storage logging is enabled for Queue service for read, write and delete requests"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/enable-requests-on-storage-logging-for-queue-service
+Check: CKV_AZURE_206: "Ensure that Storage Accounts use replication"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-206
+Check: CKV_AZURE_35: "Ensure default network access rule for Storage Accounts is set to deny"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/set-default-network-access-rule-for-storage-accounts-to-deny
+Check: CKV_AZURE_59: "Ensure that Storage accounts disallow public access"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-storage-accounts-disallow-public-access
+Check: CKV_AZURE_34: "Ensure that 'Public access level' is set to Private for blob containers"
+	PASSED for resource: azurerm_storage_container.transaction_logs
+	File: /storage.tf:118-123
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/set-public-access-level-to-private-for-blob-containers
+Check: CKV2_AZURE_40: "Ensure storage account is not configured with Shared Key authorization"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-40
+Check: CKV2_AZURE_47: "Ensure storage account is configured without blob anonymous access"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-47
+Check: CKV_AZURE_23: "Ensure that 'Auditing' is set to 'On' for SQL servers"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azr-logging-2
+Check: CKV2_AZURE_8: "Ensure the storage container storing the activity logs is not publicly accessible"
+	PASSED for resource: azurerm_storage_container.transaction_logs
+	File: /storage.tf:118-123
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-the-storage-container-storing-the-activity-logs-is-not-publicly-accessible
+Check: CKV2_AZURE_32: "Ensure private endpoint is configured to key vault"
+	PASSED for resource: azurerm_key_vault.banking
+	File: /keyvault.tf:1-23
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-32
+Check: CKV2_AZURE_38: "Ensure soft-delete is enabled on Azure storage account"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-38
+Check: CKV2_AZURE_25: "Ensure Azure SQL database Transparent Data Encryption (TDE) is enabled"
+	PASSED for resource: azurerm_mssql_database.banking
+	File: /sql.tf:73-106
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-25
+Check: CKV2_AZURE_1: "Ensure storage for critical data are encrypted with Customer Managed Key"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-storage-for-critical-data-are-encrypted-with-customer-managed-key
+Check: CKV2_AZURE_33: "Ensure storage account is configured with private endpoint"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-33
+Check: CKV2_AZURE_27: "Ensure Azure AD authentication is enabled for Azure SQL (MSSQL)"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-85
+Check: CKV2_AZURE_41: "Ensure storage account is configured with SAS expiration policy"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-105
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-41
+Check: CKV2_AZURE_45: "Ensure Microsoft SQL server is configured with private endpoint"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-45
+Check: CKV2_AZURE_29: "Ensure AKS cluster has Azure CNI networking enabled"
+	PASSED for resource: azurerm_kubernetes_cluster.banking
+	File: /aks.tf:1-84
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-29
+Check: CKV2_AZURE_2: "Ensure that Vulnerability Assessment (VA) is enabled on a SQL server by setting a Storage Account"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-vulnerability-assessment-va-is-enabled-on-a-sql-server-by-setting-a-storage-account
+Check: CKV_AZURE_24: "Ensure that 'Auditing' Retention is 'greater than 90 days' for SQL servers"
+	PASSED for resource: azurerm_mssql_server.banking
+	File: /sql.tf:29-54
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azr-logging-3
+Check: CKV2_AZURE_21: "Ensure Storage logging is enabled for Blob service for read requests"
+	SKIPPED for resource: azurerm_storage_container.transaction_logs
+	Suppress comment: Modern StorageRead diagnostic logging is enabled through azurerm_monitor_diagnostic_setting; legacy Storage Insights would require shared-key authentication.
+	File: /storage.tf:118-123
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-storage-logging-is-enabled-for-blob-service-for-read-requests
+
