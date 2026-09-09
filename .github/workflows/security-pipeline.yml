@@ -1,0 +1,224 @@
+name: Cloud-Native Banking Security Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: banking-security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CHECKOV_IMAGE: bridgecrew/checkov@sha256:7407699a91a556849ae66e05c3753f58cf0ce922aa6ddfac7839aad4f390c016
+  TERRAFORM_IMAGE: hashicorp/terraform@sha256:18f9986038bbaf02cf49db9c09261c778161c51dcc7fb7e355ae8938459428cd
+  GITLEAKS_IMAGE: zricethezav/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
+
+jobs:
+  secret-scanning:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout complete repository history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Create report directory
+        run: mkdir -p ci-reports/secrets
+
+      - name: Run Gitleaks
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${GITLEAKS_IMAGE}" \
+            git /repo \
+            --verbose \
+            --redact=100 \
+            --report-format json \
+            --report-path /repo/ci-reports/secrets/gitleaks.json
+
+      - name: Upload secret-scanning report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: secret-scanning-report
+          path: ci-reports/secrets/
+          if-no-files-found: error
+          retention-days: 30
+
+  terraform-validation:
+    name: Terraform Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Create report directory
+        run: mkdir -p ci-reports/terraform
+
+      - name: Initialize AWS Terraform
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            -w /repo/infrastructure/remediated/aws \
+            "${TERRAFORM_IMAGE}" \
+            init -backend=false -lockfile=readonly -input=false -no-color
+
+      - name: Validate AWS Terraform
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            -w /repo/infrastructure/remediated/aws \
+            "${TERRAFORM_IMAGE}" \
+            validate -no-color \
+            | tee ci-reports/terraform/aws-validation.txt
+
+      - name: Initialize Azure Terraform
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            -w /repo/infrastructure/remediated/azure \
+            "${TERRAFORM_IMAGE}" \
+            init -backend=false -lockfile=readonly -input=false -no-color
+
+      - name: Validate Azure Terraform
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            -w /repo/infrastructure/remediated/azure \
+            "${TERRAFORM_IMAGE}" \
+            validate -no-color \
+            | tee ci-reports/terraform/azure-validation.txt
+
+      - name: Upload Terraform validation reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: terraform-validation-reports
+          path: ci-reports/terraform/
+          if-no-files-found: warn
+          retention-days: 30
+
+  baseline-evidence:
+    name: Vulnerable Baseline Evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Create report directory
+        run: mkdir -p ci-reports/baseline
+
+      - name: Scan vulnerable Kubernetes baseline
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${CHECKOV_IMAGE}" \
+            -f /repo/kubernetes/vulnerable/banking-api.yaml \
+            --framework kubernetes \
+            --soft-fail \
+            --output json \
+            > ci-reports/baseline/kubernetes-vulnerable.json
+
+      - name: Scan vulnerable AWS baseline
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${CHECKOV_IMAGE}" \
+            -d /repo/infrastructure/vulnerable/aws \
+            --framework terraform \
+            --soft-fail \
+            --output json \
+            > ci-reports/baseline/aws-vulnerable.json
+
+      - name: Scan vulnerable Azure baseline
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${CHECKOV_IMAGE}" \
+            -d /repo/infrastructure/vulnerable/azure \
+            --framework terraform \
+            --soft-fail \
+            --output json \
+            > ci-reports/baseline/azure-vulnerable.json
+
+      - name: Upload vulnerable baseline evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: vulnerable-baseline-reports
+          path: ci-reports/baseline/
+          if-no-files-found: error
+          retention-days: 30
+
+  remediated-security-gates:
+    name: Remediated Security Gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Create report directory
+        run: mkdir -p ci-reports/remediated
+
+      - name: Validate remediated Kubernetes
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${CHECKOV_IMAGE}" \
+            -f /repo/kubernetes/remediated/banking-api.yaml \
+            --framework kubernetes \
+            --output json \
+            > ci-reports/remediated/kubernetes-remediated.json
+
+      - name: Validate remediated AWS
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${CHECKOV_IMAGE}" \
+            -d /repo/infrastructure/remediated/aws \
+            --framework terraform \
+            --output json \
+            > ci-reports/remediated/aws-remediated.json
+
+      - name: Validate remediated Azure
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/repo" \
+            "${CHECKOV_IMAGE}" \
+            -d /repo/infrastructure/remediated/azure \
+            --framework terraform \
+            --output json \
+            > ci-reports/remediated/azure-remediated.json
+
+      - name: Upload remediated security reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: remediated-security-reports
+          path: ci-reports/remediated/
+          if-no-files-found: warn
+          retention-days: 30
