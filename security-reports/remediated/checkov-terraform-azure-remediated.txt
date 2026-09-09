@@ -9,7 +9,7 @@ By Prisma Cloud | version: 3.3.16
 
 terraform scan results:
 
-Passed checks: 61, Failed checks: 0, Skipped checks: 1
+Passed checks: 60, Failed checks: 0, Skipped checks: 2
 
 Check: CKV_AZURE_141: "Ensure AKS local admin account is disabled"
 	PASSED for resource: azurerm_kubernetes_cluster.banking
@@ -153,55 +153,51 @@ Check: CKV_AZURE_112: "Ensure that key vault key is backed by HSM"
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-that-key-vault-key-is-backed-by-hsm
 Check: CKV_AZURE_190: "Ensure that Storage blobs restrict public access"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-190
 Check: CKV_AZURE_3: "Ensure that 'enable_https_traffic_only' is enabled"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-3
 Check: CKV_AZURE_43: "Ensure Storage Accounts adhere to the naming rules"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/ensure-storage-accounts-adhere-to-the-naming-rules
 Check: CKV_AZURE_36: "Ensure 'Trusted Microsoft Services' is enabled for Storage Account access"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/enable-trusted-microsoft-services-for-storage-account-access
 Check: CKV_AZURE_244: "Avoid the use of local users for Azure Storage unless necessary"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-244
 Check: CKV_AZURE_44: "Ensure Storage Account is using the latest version of TLS encryption"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-storage-policies/bc-azr-storage-2
-Check: CKV_AZURE_33: "Ensure Storage logging is enabled for Queue service for read, write and delete requests"
-	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
-	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/enable-requests-on-storage-logging-for-queue-service
 Check: CKV_AZURE_206: "Ensure that Storage Accounts use replication"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-206
 Check: CKV_AZURE_35: "Ensure default network access rule for Storage Accounts is set to deny"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/set-default-network-access-rule-for-storage-accounts-to-deny
 Check: CKV_AZURE_59: "Ensure that Storage accounts disallow public access"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-that-storage-accounts-disallow-public-access
 Check: CKV_AZURE_34: "Ensure that 'Public access level' is set to Private for blob containers"
 	PASSED for resource: azurerm_storage_container.transaction_logs
-	File: /storage.tf:118-123
+	File: /storage.tf:119-124
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/set-public-access-level-to-private-for-blob-containers
 Check: CKV2_AZURE_40: "Ensure storage account is not configured with Shared Key authorization"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-40
 Check: CKV2_AZURE_47: "Ensure storage account is configured without blob anonymous access"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-47
 Check: CKV_AZURE_23: "Ensure that 'Auditing' is set to 'On' for SQL servers"
 	PASSED for resource: azurerm_mssql_server.banking
@@ -209,7 +205,7 @@ Check: CKV_AZURE_23: "Ensure that 'Auditing' is set to 'On' for SQL servers"
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azr-logging-2
 Check: CKV2_AZURE_8: "Ensure the storage container storing the activity logs is not publicly accessible"
 	PASSED for resource: azurerm_storage_container.transaction_logs
-	File: /storage.tf:118-123
+	File: /storage.tf:119-124
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-the-storage-container-storing-the-activity-logs-is-not-publicly-accessible
 Check: CKV2_AZURE_32: "Ensure private endpoint is configured to key vault"
 	PASSED for resource: azurerm_key_vault.banking
@@ -217,27 +213,27 @@ Check: CKV2_AZURE_32: "Ensure private endpoint is configured to key vault"
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-32
 Check: CKV2_AZURE_38: "Ensure soft-delete is enabled on Azure storage account"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-38
+Check: CKV2_AZURE_33: "Ensure storage account is configured with private endpoint"
+	PASSED for resource: azurerm_storage_account.transaction_logs
+	File: /storage.tf:45-96
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-33
 Check: CKV2_AZURE_25: "Ensure Azure SQL database Transparent Data Encryption (TDE) is enabled"
 	PASSED for resource: azurerm_mssql_database.banking
 	File: /sql.tf:73-106
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-25
 Check: CKV2_AZURE_1: "Ensure storage for critical data are encrypted with Customer Managed Key"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/ensure-storage-for-critical-data-are-encrypted-with-customer-managed-key
-Check: CKV2_AZURE_33: "Ensure storage account is configured with private endpoint"
-	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
-	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-33
 Check: CKV2_AZURE_27: "Ensure Azure AD authentication is enabled for Azure SQL (MSSQL)"
 	PASSED for resource: azurerm_mssql_server.banking
 	File: /sql.tf:29-54
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-85
 Check: CKV2_AZURE_41: "Ensure storage account is configured with SAS expiration policy"
 	PASSED for resource: azurerm_storage_account.transaction_logs
-	File: /storage.tf:45-105
+	File: /storage.tf:45-96
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-2-41
 Check: CKV2_AZURE_45: "Ensure Microsoft SQL server is configured with private endpoint"
 	PASSED for resource: azurerm_mssql_server.banking
@@ -255,9 +251,14 @@ Check: CKV_AZURE_24: "Ensure that 'Auditing' Retention is 'greater than 90 days'
 	PASSED for resource: azurerm_mssql_server.banking
 	File: /sql.tf:29-54
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/bc-azr-logging-3
+Check: CKV_AZURE_33: "Ensure Storage logging is enabled for Queue service for read, write and delete requests"
+	SKIPPED for resource: azurerm_storage_account.transaction_logs
+	Suppress comment: Queue read, write and delete logging is configured through the AzureRM v4 azurerm_storage_account_queue_properties resource.
+	File: /storage.tf:45-96
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/enable-requests-on-storage-logging-for-queue-service
 Check: CKV2_AZURE_21: "Ensure Storage logging is enabled for Blob service for read requests"
 	SKIPPED for resource: azurerm_storage_container.transaction_logs
 	Suppress comment: Modern StorageRead diagnostic logging is enabled through azurerm_monitor_diagnostic_setting; legacy Storage Insights would require shared-key authentication.
-	File: /storage.tf:118-123
+	File: /storage.tf:119-124
 	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-logging-policies/ensure-storage-logging-is-enabled-for-blob-service-for-read-requests
 

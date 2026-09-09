@@ -12,8 +12,8 @@ documented scanner exception.
 | Assessment | Passed | Failed | Skipped |
 |---|---:|---:|---:|
 | Vulnerable baseline | 15 | 45 | 0 |
-| Remediated configuration | 61 | 0 | 1 |
-| Improvement | — | 45 findings resolved | 1 documented exception |
+| Remediated configuration | 60 | 0 | 2 |
+| Improvement | — | 45 findings resolved | 2 documented exception |
 
 > The remediated configuration includes additional defensive resources, so the
 > number of evaluated checks is higher than in the vulnerable baseline.
@@ -118,7 +118,7 @@ The hardened AKS cluster includes:
 - FIPS-enabled nodes
 - Automatic Kubernetes and node security updates
 
-## Documented Checkov Exception
+## Documented Checkov Exceptions
 
 ### CKV2_AZURE_21
 
@@ -139,13 +139,25 @@ explicitly sends the following events to Log Analytics:
 The exception therefore avoids weakening authentication solely to satisfy an
 outdated graph relationship in the scanner.
 
+### CKV_AZURE_33
+
+Checkov expects the deprecated inline `queue_properties` block inside the
+storage-account resource.
+
+AzureRM v4.81 deprecates that block in favor of the dedicated
+`azurerm_storage_account_queue_properties` resource.
+
+The remediated configuration uses the supported resource and enables read,
+write and delete logging with 365-day retention. The exception prevents
+reintroducing deprecated provider syntax solely to satisfy the scanner.
+
 ## Validation Result
 
 | Metric | Result |
 |---|---:|
-| Passed checks | 61 |
+| Passed checks | 60 |
 | Failed checks | 0 |
-| Skipped checks | 1 |
+| Skipped checks | 2 |
 | Baseline findings resolved | 45 |
 
 ## Security Engineering Conclusion

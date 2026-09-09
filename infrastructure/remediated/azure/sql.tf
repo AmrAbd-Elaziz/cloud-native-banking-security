@@ -160,8 +160,7 @@ resource "azurerm_monitor_diagnostic_setting" "sql" {
     category = "Blocks"
   }
 
-  metric {
+  enabled_metric {
     category = "Basic"
-    enabled  = true
   }
 }

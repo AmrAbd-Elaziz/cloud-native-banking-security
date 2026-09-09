@@ -7,7 +7,7 @@ resource "azurerm_key_vault" "banking" {
 
   soft_delete_retention_days    = 90
   purge_protection_enabled      = true
-  enable_rbac_authorization     = true
+  rbac_authorization_enabled     = true
   public_network_access_enabled = false
   enabled_for_disk_encryption   = true
 
@@ -55,8 +55,7 @@ resource "azurerm_monitor_diagnostic_setting" "key_vault" {
     category = "AuditEvent"
   }
 
-  metric {
+  enabled_metric {
     category = "AllMetrics"
-    enabled  = true
   }
 }

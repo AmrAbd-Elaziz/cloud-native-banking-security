@@ -43,6 +43,7 @@ resource "azurerm_role_assignment" "storage_key_access" {
 }
 
 resource "azurerm_storage_account" "transaction_logs" {
+  # checkov:skip=CKV_AZURE_33:Queue read, write and delete logging is configured through the AzureRM v4 azurerm_storage_account_queue_properties resource.
   name                = var.storage_account_name
   resource_group_name = azurerm_resource_group.banking.name
   location            = azurerm_resource_group.banking.location
@@ -88,22 +89,22 @@ resource "azurerm_storage_account" "transaction_logs" {
     }
   }
 
-  queue_properties {
-    logging {
-      delete                = true
-      read                  = true
-      write                 = true
-      version               = "1.0"
-      retention_policy_days = 365
-    }
-  }
-
   tags = {
     Environment = var.environment
     DataClass   = "financial-audit"
   }
 }
+resource "azurerm_storage_account_queue_properties" "transaction_logs" {
+  storage_account_id = azurerm_storage_account.transaction_logs.id
 
+  logging {
+    delete                = true
+    read                  = true
+    write                 = true
+    version               = "1.0"
+    retention_policy_days = 365
+  }
+}
 resource "azurerm_storage_account_customer_managed_key" "transaction_logs" {
   storage_account_id        = azurerm_storage_account.transaction_logs.id
   key_vault_id              = azurerm_key_vault.banking.id
@@ -187,8 +188,7 @@ resource "azurerm_monitor_diagnostic_setting" "storage_blob" {
     category = "StorageDelete"
   }
 
-  metric {
+  enabled_metric {
     category = "Transaction"
-    enabled  = true
   }
 }
