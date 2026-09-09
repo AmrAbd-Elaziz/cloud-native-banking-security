@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Checkout complete repository history
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload secret-scanning report
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: secret-scanning-report
           path: ci-reports/secrets/
@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
 
@@ -107,7 +107,7 @@ jobs:
 
       - name: Upload Terraform validation reports
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: terraform-validation-reports
           path: ci-reports/terraform/
@@ -121,7 +121,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
 
@@ -163,7 +163,7 @@ jobs:
 
       - name: Upload vulnerable baseline evidence
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: vulnerable-baseline-reports
           path: ci-reports/baseline/
@@ -177,7 +177,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
 
@@ -216,7 +216,7 @@ jobs:
 
       - name: Upload remediated security reports
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: remediated-security-reports
           path: ci-reports/remediated/
